@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Store
 import { blocSelectionModal, buildMode } from '../store';
+import setBackgroundWeather from './weather/set-background-weather';
 
 // Variables
 let scene: THREE.Scene;
@@ -23,7 +24,7 @@ let rollOverMaterial: THREE.MeshBasicMaterial;
 
 const objects: THREE.Mesh[] = [];
 
-let isAltDown: boolean = false;
+let isAltDown = false;
 
 // init
 export const init = (el: any) => {
@@ -83,6 +84,8 @@ export const init = (el: any) => {
 	document.addEventListener('keyup', onDocumentKeyUp);
 
 	window.addEventListener('resize', onWindowResize);
+
+	setBackgroundWeather({scene: scene, camera: camera});
 
 	tick();
 };

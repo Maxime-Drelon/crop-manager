@@ -28,9 +28,10 @@
 <canvas bind:this={el} class="fixed top-0 left-0" />
 <div class="absolute top-0 left-0 p-6 w-full ">
 	<div class="flex flex-row justify-between">
-		<div class="font-roboto text-2xl font-semibold text-black dark:text-white">
+		<div class="font-roboto text-2xl font-semibold text-black dark:text-white pr-6">
 			MDDB's Garden Manager
 		</div>
+		<img id="wicon" src="" alt="Weather Icon">
 		<div class="flex justify-center align-middle">
 			{#if build === true}
 				<button
