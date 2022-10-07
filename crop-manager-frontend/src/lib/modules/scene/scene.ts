@@ -3,10 +3,11 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Store
-import { blocSelectionModal, buildMode, weatherState } from '../store';
-import WeatherTypes from './types/weather';
-import generateRain from './weather/generate-rain';
-import setBackgroundWeather from './weather/set-background-weather';
+import { blocSelectionModal, buildMode, weatherState } from '$lib/modules/building/store';
+
+import WeatherTypes from '$lib/types/weather';
+import generateRain from '$lib/modules/weather/generate-rain';
+import setBackgroundWeather from '$lib/modules/weather/set-background-weather';
 
 // Variables
 let scene: THREE.Scene;
