@@ -1,5 +1,5 @@
-import WeatherTypes from '$lib/types/weather';
-import { weatherState } from '$lib/modules/building/store';
+import WeatherTypes from '$lib/modules/weather/types';
+import { weatherState } from '$lib/modules/weather/store';
 import WeatherDataManager from './weather-data-manager';
 const dataManager = new WeatherDataManager({ APIKey: 'ba3a5ca3cf74095a4b31ec27f3c5cb2b' });
 

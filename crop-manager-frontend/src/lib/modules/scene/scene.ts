@@ -3,9 +3,13 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Store
-import { blocSelectionModal, buildMode, weatherState } from '$lib/modules/building/store';
+import { weatherState } from '$lib/modules/weather/store';
+import { blocSelectionModal, buildMode } from '$lib/modules/building/store';
 
-import WeatherTypes from '$lib/types/weather';
+// Types
+import WeatherTypes from '$lib/modules/weather/types';
+
+// Weather
 import generateRain from '$lib/modules/weather/generate-rain';
 import setBackgroundWeather from '$lib/modules/weather/set-background-weather';
 
@@ -43,7 +47,7 @@ export const init = (el: any) => {
 
 	weatherState.subscribe((s) => {
 		currentWeather = s;
-	})
+	});
 
 	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
 	gsap.to(camera.position, { duration: 5, z: 50, y: 25 });
@@ -109,8 +113,6 @@ const setBackgroundColor = () => {
 	}
 };
 
-export const gs: THREE.Mesh[] = []
-
 const tick = () => {
 	requestAnimationFrame(tick);
 
@@ -122,7 +124,7 @@ const tick = () => {
 	controls.autoRotate = !build;
 	controls.enabled = build;
 
-	if (currentWeather == WeatherTypes.raining) {
+	if (currentWeather === WeatherTypes.raining) {
 		generateRain(scene, camera);
 	}
 
