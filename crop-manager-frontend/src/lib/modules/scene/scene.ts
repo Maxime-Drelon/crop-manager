@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Store
-import { blocSelectionModal, buildMode } from '../store';
+import { blocSelectionModal, buildMode } from '$lib/modules/building/store';
 
 // Variables
 let scene: THREE.Scene;
