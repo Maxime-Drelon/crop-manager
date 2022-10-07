@@ -3,7 +3,9 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Store
-import { blocSelectionModal, buildMode } from '../store';
+import { blocSelectionModal, buildMode, weatherState } from '../store';
+import WeatherTypes from './types/weather';
+import generateRain from './weather/generate-rain';
 import setBackgroundWeather from './weather/set-background-weather';
 
 // Variables
@@ -22,6 +24,8 @@ let build: boolean;
 let rollOverMesh: THREE.Mesh;
 let rollOverMaterial: THREE.MeshBasicMaterial;
 
+let currentWeather: WeatherTypes;
+
 const objects: THREE.Mesh[] = [];
 
 let isAltDown = false;
@@ -35,6 +39,10 @@ export const init = (el: any) => {
 	buildMode.subscribe((value) => {
 		build = value;
 	});
+
+	weatherState.subscribe((s) => {
+		currentWeather = s;
+	})
 
 	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
 	gsap.to(camera.position, { duration: 5, z: 50, y: 25 });
@@ -85,7 +93,7 @@ export const init = (el: any) => {
 
 	window.addEventListener('resize', onWindowResize);
 
-	setBackgroundWeather({scene: scene, camera: camera});
+	setBackgroundWeather(scene);
 
 	tick();
 };
@@ -100,6 +108,8 @@ const setBackgroundColor = () => {
 	}
 };
 
+export const gs: THREE.Mesh[] = []
+
 const tick = () => {
 	requestAnimationFrame(tick);
 
@@ -110,6 +120,10 @@ const tick = () => {
 	rollOverMesh.visible = build;
 	controls.autoRotate = !build;
 	controls.enabled = build;
+
+	if (currentWeather == WeatherTypes.raining) {
+		generateRain(scene, camera);
+	}
 
 	renderer.render(scene, camera);
 };
